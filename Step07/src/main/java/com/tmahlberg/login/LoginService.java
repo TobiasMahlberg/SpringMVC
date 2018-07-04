@@ -1,4 +1,4 @@
-package de.datanet.login;
+package com.tmahlberg.login;
 
 import org.springframework.stereotype.Service;
 
