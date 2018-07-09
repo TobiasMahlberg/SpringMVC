@@ -53,16 +53,17 @@
   <body>
     <p><font color="red">${errorMessage}</font></p>
    	
-   	<form action="login" method="POST">
+   	<form action="/login" method="POST">
 	  <div class="login-container">
 		<div class="form-box">
    		  <fieldset class="form-group">
-			<label>Name</label> <input name="name" type="text" class="form-control" />
+			<label>Name</label> <input name="username" type="text" class="form-control" />
 		  </fieldset>
 		  <fieldset class="form-group">
 			<label>Password</label> <input name="password" type="password" class="form-control" />
 		  </fieldset>
-   		  <button class="btn btn-info btn-block login" type="submit">Login</button>
+   		  <input name="submit" type="submit" value="Login">
+   		  <!--  <button class="btn btn-info btn-block login" type="submit">Login</button>  -->
    	  	</div>
  	  </div>
    	</form>
