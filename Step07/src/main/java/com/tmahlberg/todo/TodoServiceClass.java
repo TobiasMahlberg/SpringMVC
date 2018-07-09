@@ -1,4 +1,4 @@
-package com.tmahlberg.login.model;
+package com.tmahlberg.todo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +27,19 @@ public class TodoServiceClass implements TodoService {
 				filteredTodos.add(todo);
 		}
 		return filteredTodos;
+	}
+
+	public Todo retrieveTodo(int id) {
+		for (Todo todo : todos) {
+			if (todo.getId() == id)
+				return todo;
+		}
+		return null;
+	}
+
+	public void updateTodo(Todo todo) {
+		todos.remove(todo);
+		todos.add(todo);
 	}
 
 	@Override

@@ -1,15 +1,15 @@
-package com.tmahlberg.login.model;
+package com.tmahlberg.todo;
 
 import java.util.Date;
 
 import javax.validation.constraints.Size;
 
 public class Todo {
-	private int id;
 
+	private int id;
 	private String user;
 
-	@Size(min = 10, max = 20, message = "Nur min. 10 / max 20 Zeichen.")
+	@Size(max = 30, message = "Nur max 30 Zeichen.")
 	private String desc;
 
 	private Date targetDate;
