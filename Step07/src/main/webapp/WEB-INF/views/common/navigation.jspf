@@ -1,7 +1,7 @@
 <nav role="navigation" class="navbar navbar-default">
 
 	<div class="">
-		<a href="http://www.in28minutes.com" class="navbar-brand">in28Minutes</a>
+		<a href="#" class="navbar-brand">Spring MVC</a>
 	</div>
 
 	<div class="navbar-collapse">
@@ -10,6 +10,9 @@
 			<li class="active" ><a href="/list-todos">Todos</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
+			<li><a href="?language=de">DE</a></li>
+			<li><a href="?language=en">EN</a></li>
+			<li><a href="?language=fr">FR</a></li>
 			<li><a href="/logout">Logout</a></li>
 		</ul>
 	</div>

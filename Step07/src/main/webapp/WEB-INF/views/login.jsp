@@ -54,6 +54,9 @@
     <p><font color="red">${errorMessage}</font></p>
    	
    	<form action="/login" method="POST">
+
+	  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
 	  <div class="login-container">
 		<div class="form-box">
    		  <fieldset class="form-group">

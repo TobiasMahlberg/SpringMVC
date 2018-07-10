@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 5.3//EN"
+          "http://www.hibernate.org/dtd/hibernate-mapping-5.3.dtd">
+          <!-- "http://hibernate.sourceforge.net/hibernate-mapping-5.3.dtd"> -->
+
+<hibernate-mapping>
+
+	<class name="com.tmahlberg.todo.Todo" table="todo">
+
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="assigned"></generator>
+		</id>
+
+		<property name="user" type="java.lang.String">
+			<column name="USER" />
+		</property>
+
+		<property name="desc" type="java.lang.String">
+			<column name="DESC" />
+		</property>
+
+		<property name="targetDate" type="java.util.Date">
+			<column name="TARGETDATE" />
+		</property>
+
+		<property name="Done" type="java.util.Date">
+			<column name="IS_DONE" />
+		</property>
+
+	</class>
+
+</hibernate-mapping>

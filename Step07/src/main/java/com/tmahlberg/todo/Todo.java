@@ -2,14 +2,8 @@ package com.tmahlberg.todo;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
-@Entity
 public class Todo {
 
 	private int id;
@@ -34,9 +28,6 @@ public class Todo {
 		this.isDone = isDone;
 	}
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
 	public int getId() {
 		return id;
 	}
@@ -45,7 +36,6 @@ public class Todo {
 		this.id = id;
 	}
 
-	@Column(name="USER", nullable=true)
 	public String getUser() {
 		return user;
 	}
@@ -54,7 +44,6 @@ public class Todo {
 		this.user = user;
 	}
 
-	@Column(name="DESC", nullable=true)
 	public String getDesc() {
 		return desc;
 	}
@@ -63,7 +52,6 @@ public class Todo {
 		this.desc = desc;
 	}
 
-	@Column(name="DATE", nullable=true)
 	public Date getTargetDate() {
 		return targetDate;
 	}
@@ -72,8 +60,7 @@ public class Todo {
 		this.targetDate = targetDate;
 	}
 
-	@Column(name="IS_DONE", nullable=true)
-	public boolean isDone() {
+	public boolean getDone() {
 		return isDone;
 	}
 
