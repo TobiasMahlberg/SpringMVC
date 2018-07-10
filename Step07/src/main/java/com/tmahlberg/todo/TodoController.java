@@ -64,6 +64,7 @@ public class TodoController {
 			return "todo";
 
 		service.addTodo(getLoggedInUserName(model), todo.getDesc(), new Date(), false);
+
 		model.clear();// to prevent request parameter "name" to be passed
 		return "redirect:/list-todos";
 	}

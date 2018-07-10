@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.tmahlberg.db.HibernateUtil;
+
 @Service("TodoService")
 public class TodoServiceClass implements TodoService {
 
@@ -29,6 +31,10 @@ public class TodoServiceClass implements TodoService {
 		return filteredTodos;
 	}
 
+	public void Test () {
+		System.out.print("X");
+	}
+
 	@Override
 	public Todo retrieveTodo(int id) {
 		for (Todo todo : todos) {
@@ -49,11 +55,13 @@ public class TodoServiceClass implements TodoService {
 
         Todo todo = new Todo(++todoCount, name, desc, targetDate, isDone);
 
-		/*HibernateUtil db = new HibernateUtil();
-        Transaction t = db.beginTransaction();
+		HibernateUtil db = new HibernateUtil();
+        db.beginTransaction();
+
         db.getSession().save(todo);
-        db.commitTransaction(t);
-        db.closeSession();*/
+
+        db.commitTransaction();
+        db.closeSession();
 
         todos.add(todo);
 

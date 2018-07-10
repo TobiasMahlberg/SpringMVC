@@ -2,7 +2,6 @@ package com.tmahlberg.db;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -15,6 +14,7 @@ public class HibernateUtil
 	private Metadata meta;
 	private SessionFactory factory;
 	private Session session;
+
 
 	public HibernateUtil () {
 
@@ -55,16 +55,13 @@ public class HibernateUtil
 		return this.session;
 	}
 
-	public Transaction beginTransaction() {
-
+	public void beginTransaction() {
 		setSessionFactory(meta.getSessionFactoryBuilder().build());
     	setSession(getSessionFactory().openSession());
-
-		return session.beginTransaction();
 	}
 
-	public void commitTransaction(Transaction t) {
-		t.commit();
+	public void commitTransaction() {
+		this.session.getTransaction().commit();
 	}
 
 	public void closeSession() {
