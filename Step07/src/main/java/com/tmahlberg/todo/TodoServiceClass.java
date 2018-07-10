@@ -5,10 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
-
-import com.tmahlberg.db.HibernateUtil;
 
 @Service("TodoService")
 public class TodoServiceClass implements TodoService {
@@ -50,13 +47,13 @@ public class TodoServiceClass implements TodoService {
 	@Override
 	public void addTodo(String name, String desc, Date targetDate, boolean isDone) {
 
-		HibernateUtil db = new HibernateUtil();
         Todo todo = new Todo(++todoCount, name, desc, targetDate, isDone);
 
+		/*HibernateUtil db = new HibernateUtil();
         Transaction t = db.beginTransaction();
         db.getSession().save(todo);
         db.commitTransaction(t);
-        db.closeSession();
+        db.closeSession();*/
 
         todos.add(todo);
 

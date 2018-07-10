@@ -60,10 +60,10 @@
 	  <div class="login-container">
 		<div class="form-box">
    		  <fieldset class="form-group">
-			<label>Name</label> <input name="username" type="text" class="form-control" />
+			<label><spring:message code="login.name" /></label> <input name="username" type="text" class="form-control" />
 		  </fieldset>
 		  <fieldset class="form-group">
-			<label>Password</label> <input name="password" type="password" class="form-control" />
+			<label><spring:message code="login.password" /></label> <input name="password" type="password" class="form-control" />
 		  </fieldset>
    		  <input name="submit" type="submit" value="Login">
    		  <!--  <button class="btn btn-info btn-block login" type="submit">Login</button>  -->
