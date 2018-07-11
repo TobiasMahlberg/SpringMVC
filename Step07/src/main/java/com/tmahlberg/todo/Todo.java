@@ -2,26 +2,42 @@ package com.tmahlberg.todo;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name = "todo")
 public class Todo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
 	private int id;
+
+	@Column(name = "username")
 	private String user;
 
-	@Size(max = 30, message = "Nur max 30 Zeichen.")
+	@Column(name = "description")
+	@Size(max = 50, message = "Nur max 50 Zeichen.")
 	private String desc;
 
+	@Column(name = "datum")
 	private Date targetDate;
+
+	@Column(name = "is_done")
 	private boolean isDone;
 
 	public Todo() {
 		super();
 	}
 
-	public Todo(int id, String user, String desc, Date targetDate, boolean isDone) {
+	public Todo(String user, String desc, Date targetDate, boolean isDone) {
 		super();
-		this.id = id;
 		this.user = user;
 		this.desc = desc;
 		this.targetDate = targetDate;

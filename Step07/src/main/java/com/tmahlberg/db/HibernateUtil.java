@@ -2,49 +2,21 @@ package com.tmahlberg.db;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil
 {
 
-	private StandardServiceRegistry ssr;
-	private Metadata meta;
-	private SessionFactory factory;
+    private SessionFactory factory;
 	private Session session;
+	private Transaction tx;
+	private Configuration cfg;
 
 
 	public HibernateUtil () {
-
-		setSsr(new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build());
-		setMeta(new MetadataSources(ssr).getMetadataBuilder().build());
-
-	}
-
-	public void setSsr(StandardServiceRegistry ssr) {
-		this.ssr = ssr;
-	}
-
-	public StandardServiceRegistry getSsr() {
-		return this.ssr;
-	}
-
-	public void setMeta(Metadata meta) {
-		this.meta = meta;
-	}
-
-	public Metadata getMeta() {
-		return this.meta;
-	}
-
-	public void setSessionFactory(SessionFactory factory) {
-		this.factory = factory;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return this.factory;
+		this.cfg = new Configuration().configure();
+		this.factory = cfg.buildSessionFactory();
 	}
 
 	public void setSession(Session session) {
@@ -56,17 +28,20 @@ public class HibernateUtil
 	}
 
 	public void beginTransaction() {
-		setSessionFactory(meta.getSessionFactoryBuilder().build());
-    	setSession(getSessionFactory().openSession());
+	    this.session = factory.openSession();
+		this.tx = this.session.beginTransaction();
 	}
 
 	public void commitTransaction() {
-		this.session.getTransaction().commit();
+		this.tx.commit();
 	}
 
-	public void closeSession() {
-		this.factory.close();
+	public void closeTransaction() {
 	    this.session.close();
+	}
+
+	public void closeFactory() {
+		this.factory.close();
 	}
 
 }

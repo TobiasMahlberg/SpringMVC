@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 
 import com.tmahlberg.db.HibernateUtil;
@@ -13,26 +14,26 @@ import com.tmahlberg.db.HibernateUtil;
 public class TodoServiceClass implements TodoService {
 
 	private static List<Todo> todos = new ArrayList<Todo>();
-	private static int todoCount = 3;
+	private static HibernateUtil db;
 
-	static {
-		todos.add(new Todo(1, "admin", "Learn Spring MVC", new Date(), false));
-		todos.add(new Todo(2, "admin", "Learn Struts", new Date(), false));
-		todos.add(new Todo(3, "admin", "Learn Hibernate", new Date(), false));
+	public TodoServiceClass () {
+		db = new HibernateUtil();
+
 	}
 
 	@Override
 	public List<Todo> retrieveTodos(String user) {
-		List<Todo> filteredTodos = new ArrayList<Todo>();
-		for (Todo todo : todos) {
-			if (todo.getUser().equals(user))
-				filteredTodos.add(todo);
-		}
-		return filteredTodos;
-	}
 
-	public void Test () {
-		System.out.print("X");
+		db.beginTransaction();
+
+		Query q = db.getSession().createQuery("from Todo where username=:u");
+	    q.setParameter("u", user);
+	    todos = q.list();
+
+	    db.commitTransaction();
+        db.closeTransaction();
+
+		return todos;
 	}
 
 	@Override
@@ -46,22 +47,38 @@ public class TodoServiceClass implements TodoService {
 
 	@Override
 	public void updateTodo(Todo todo) {
+		db.beginTransaction();
+
+		Object obj = db.getSession().load(Todo.class, new Integer(todo.getId()));
+
+	    Todo db_todo = (Todo) obj;
+		db.getSession().delete(db_todo);
+
+		db.getSession().save(todo);
+
+        db.commitTransaction();
+        db.closeTransaction();
+
 		todos.remove(todo);
 		todos.add(todo);
+
 	}
 
 	@Override
 	public void addTodo(String name, String desc, Date targetDate, boolean isDone) {
 
-        Todo todo = new Todo(++todoCount, name, desc, targetDate, isDone);
+        Todo todo = new Todo(name, desc, targetDate, isDone);
 
-		HibernateUtil db = new HibernateUtil();
-        db.beginTransaction();
+		try {
 
-        db.getSession().save(todo);
+			db.beginTransaction();
+			db.getSession().save(todo);
+	        db.commitTransaction();
+	        db.closeTransaction();
 
-        db.commitTransaction();
-        db.closeSession();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         todos.add(todo);
 
@@ -73,6 +90,22 @@ public class TodoServiceClass implements TodoService {
 		while (iterator.hasNext()) {
 			Todo todo = iterator.next();
 			if (todo.getId() == id) {
+
+				System.out.println(todo.getId());
+
+				try {
+					db.beginTransaction();
+
+					Object obj = db.getSession().load(Todo.class, new Integer(todo.getId()));
+				    Todo db_todo = (Todo) obj;
+					db.getSession().delete(db_todo);
+
+			        db.commitTransaction();
+			        db.closeTransaction();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 				iterator.remove();
 			}
 		}
