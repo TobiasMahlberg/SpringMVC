@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tmahlberg.db.HibernateUtil;
 
+
 @Service("TodoService")
 public class TodoServiceClass implements TodoService {
 
